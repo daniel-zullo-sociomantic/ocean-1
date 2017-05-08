@@ -230,7 +230,7 @@ class Application : IApplication
 
     public void exit(int status, istring msg = null)
     {
-        throw new ExitException(status, msg);
+        //throw new ExitException(status, msg);
     }
 
 

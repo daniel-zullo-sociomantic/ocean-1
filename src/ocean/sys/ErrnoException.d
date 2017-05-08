@@ -123,24 +123,24 @@ public class ErrnoException : Exception
     }
 
     ///
-    unittest
-    {
-        try
-        {
-            (new ErrnoException).enforce(
-                { .errno = EMFILE; return false; } (),
-                "extra",
-                "FUNCTION"
-            );
-            assert (false);
-        }
-        catch (ErrnoException e)
-        {
-            test!("==")(getMsg(e),
-                        "FUNCTION: Too many open files (extra)"[]);
-            test!("==")(e.errorNumber(), EMFILE);
-        }
-    }
+    //unittest
+    //{
+    //    try
+    //    {
+    //        (new ErrnoException).enforce(
+    //            { .errno = EMFILE; return false; } (),
+    //            "extra",
+    //            "FUNCTION"
+    //        );
+    //        assert (false);
+    //    }
+    //    catch (ErrnoException e)
+    //    {
+    //        test!("==")(getMsg(e),
+    //                    "FUNCTION: Too many open files (extra)"[]);
+    //        test!("==")(e.errorNumber(), EMFILE);
+    //    }
+    //}
 
     /**************************************************************************
 
@@ -203,25 +203,25 @@ public class ErrnoException : Exception
     }
 
     ///
-    unittest
-    {
-        extern(C) static void* func ( )
-        {
-            .errno = EMFILE;
-            return null;
-        }
+    //unittest
+    //{
+    //    extern(C) static void* func ( )
+    //    {
+    //        .errno = EMFILE;
+    //        return null;
+    //    }
 
-        try
-        {
-            (new ErrnoException).enforceRetPtr!(func).call();
-            assert (false);
-        }
-        catch (ErrnoException e)
-        {
-            test!("==")(getMsg(e), "func: Too many open files"[]);
-            test!("==")(e.line, __LINE__ - 6);
-        }
-    }
+    //    try
+    //    {
+    //        (new ErrnoException).enforceRetPtr!(func).call();
+    //        assert (false);
+    //    }
+    //    catch (ErrnoException e)
+    //    {
+    //        test!("==")(getMsg(e), "func: Too many open files"[]);
+    //        test!("==")(e.line, __LINE__ - 6);
+    //    }
+    //}
 
     /**************************************************************************
 
@@ -248,28 +248,28 @@ public class ErrnoException : Exception
     }
 
     ///
-    unittest
-    {
-        extern(C) static int func(int a, int b)
-        {
-            .errno = EMFILE;
-            test!("==")(a, 41);
-            test!("==")(b, 43);
-            return -1;
-        }
+    //unittest
+    //{
+    //    extern(C) static int func(int a, int b)
+    //    {
+    //        .errno = EMFILE;
+    //        test!("==")(a, 41);
+    //        test!("==")(b, 43);
+    //        return -1;
+    //    }
 
-        try
-        {
-            (new ErrnoException).enforceRetCode!(func)().call(41, 43);
-            assert (false);
-        }
-        catch (ErrnoException e)
-        {
-            test!("==")(getMsg(e), "func: Too many open files"[]);
-            test!("==")(e.failedFunctionName(), "func"[]);
-            test!("==")(e.line, __LINE__ - 7);
-        }
-    }
+    //    try
+    //    {
+    //        (new ErrnoException).enforceRetCode!(func)().call(41, 43);
+    //        assert (false);
+    //    }
+    //    catch (ErrnoException e)
+    //    {
+    //        test!("==")(getMsg(e), "func: Too many open files"[]);
+    //        test!("==")(e.failedFunctionName(), "func"[]);
+    //        test!("==")(e.line, __LINE__ - 7);
+    //    }
+    //}
 
 
     /**************************************************************************
@@ -294,16 +294,16 @@ public class ErrnoException : Exception
     }
 
     ///
-    unittest
-    {
-        .errno = ENOTBLK;
-        auto e = new ErrnoException;
-        test!("==")(
-            getMsg(e.useGlobalErrno("func").append(" str1").append(" str2")),
-            "func: Block device required str1 str2"[]
-        );
-        test!("==")(.errno, ENOTBLK);
-    }
+    //unittest
+    //{
+    //    .errno = ENOTBLK;
+    //    auto e = new ErrnoException;
+    //    test!("==")(
+    //        getMsg(e.useGlobalErrno("func").append(" str1").append(" str2")),
+    //        "func: Block device required str1 str2"[]
+    //    );
+    //    test!("==")(.errno, ENOTBLK);
+    //}
 
     /**************************************************************************
 
@@ -340,12 +340,12 @@ public class ErrnoException : Exception
     }
 
     ///
-    unittest
-    {
-        auto e = new ErrnoException;
-        e.set(0);
-        test!("==")(getMsg(e), "Expected non-zero errno after failure"[]);
-    }
+    //unittest
+    //{
+    //    auto e = new ErrnoException;
+    //    e.set(0);
+    //    test!("==")(getMsg(e), "Expected non-zero errno after failure"[]);
+    //}
 
     /**************************************************************************
 
@@ -371,12 +371,12 @@ public class ErrnoException : Exception
     }
 
     ///
-    unittest
-    {
-        auto e = new ErrnoException;
-        e.set(ENOTBLK).addMessage("msg");
-        test!("==")(getMsg(e), "Block device required (msg)"[]);
-    }
+    //unittest
+    //{
+    //    auto e = new ErrnoException;
+    //    e.set(ENOTBLK).addMessage("msg");
+    //    test!("==")(getMsg(e), "Block device required (msg)"[]);
+    //}
 }
 
 /*******************************************************************************

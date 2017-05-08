@@ -250,12 +250,16 @@ public template ReusableExceptionImplementation()
 }
 
 ///
-unittest
+import ocean.io.Stdout;
+version(none) unittest
 {
+
     auto e = new SomeReusableException(100);
 
     e.set("message");
+    Stdout.formatln(">>>>{}<<<<", getMsg(e));
     assert (getMsg(e) == "message");
+
     auto old_ptr = e.reused_msg[].ptr;
 
     try

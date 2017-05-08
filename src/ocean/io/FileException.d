@@ -117,22 +117,22 @@ version (UnitTest)
 }
 
 ///
-unittest
-{
-    auto e = new FileException;
-    auto f = fdopen(42, "r".ptr);
+//unittest
+//{
+//    auto e = new FileException;
+//    auto f = fdopen(42, "r".ptr);
 
-    try
-    {
-        e.enforce(f !is null, "<42>", f);
-        assert (false);
-    }
-    catch (FileException e)
-    {
-        test!("==")(
-            getMsg(e),
-            "Bad file descriptor (failed operation on '<42>')"[]
-        );
-        test!("==")(e.line, __LINE__ - 9);
-    }
-}
+//    try
+//    {
+//        e.enforce(f !is null, "<42>", f);
+//        assert (false);
+//    }
+//    catch (FileException e)
+//    {
+//        test!("==")(
+//            getMsg(e),
+//            "Bad file descriptor (failed operation on '<42>')"[]
+//        );
+//        test!("==")(e.line, __LINE__ - 9);
+//    }
+//}

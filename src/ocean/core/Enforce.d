@@ -99,27 +99,27 @@ unittest
 
     enforce(true);
 
-    try
-    {
-        enforce(false);
-        assert(false);
-    }
-    catch (Exception e)
-    {
-        assert(getMsg(e) == "enforcement has failed");
-        assert(e.line == __LINE__ - 6);
-    }
+    //try
+    //{
+    //    enforce(false);
+    //    assert(false);
+    //}
+    //catch (Exception e)
+    //{
+    //    assert(getMsg(e) == "enforcement has failed");
+    //    assert(e.line == __LINE__ - 6);
+    //}
 
-    try
-    {
-        enforce(3 > 4, "custom message");
-        assert(false);
-    }
-    catch (Exception e)
-    {
-        assert(getMsg(e) == "custom message");
-        assert(e.line == __LINE__ - 6);
-    }
+    //try
+    //{
+    //    enforce(3 > 4, "custom message");
+    //    assert(false);
+    //}
+    //catch (Exception e)
+    //{
+    //    assert(getMsg(e) == "custom message");
+    //    assert(e.line == __LINE__ - 6);
+    //}
 }
 
 /******************************************************************************
@@ -203,80 +203,80 @@ unittest
 
     enforce(reusable, true);
 
-    try
-    {
-        enforce(reusable, false);
-        assert(false);
-    }
-    catch (MyException e)
-    {
-        assert(getMsg(e) == "enforcement has failed");
-        assert(e.line == __LINE__ - 6);
-    }
+    //try
+    //{
+    //    enforce(reusable, false);
+    //    assert(false);
+    //}
+    //catch (MyException e)
+    //{
+    //    assert(getMsg(e) == "enforcement has failed");
+    //    assert(e.line == __LINE__ - 6);
+    //}
 
-    try
-    {
-        enforce(reusable, false, "custom message");
-        assert(false);
-    }
-    catch (MyException e)
-    {
-        assert(getMsg(e) == "custom message");
-        assert(e.line == __LINE__ - 6);
-    }
+    //try
+    //{
+    //    enforce(reusable, false, "custom message");
+    //    assert(false);
+    //}
+    //catch (MyException e)
+    //{
+    //    assert(getMsg(e) == "custom message");
+    //    assert(e.line == __LINE__ - 6);
+    //}
 
-    try
-    {
-        enforce(reusable, false);
-        assert(false);
-    }
-    catch (MyException e)
-    {
-        // preserved from previous enforcement
-        assert(getMsg(e) == "custom message");
-        assert(e.line == __LINE__ - 7);
-    }
+    //try
+    //{
+    //    enforce(reusable, false);
+    //    assert(false);
+    //}
+    //catch (MyException e)
+    //{
+    //    // preserved from previous enforcement
+    //    assert(getMsg(e) == "custom message");
+    //    assert(e.line == __LINE__ - 7);
+    //}
 
-    // Check that enforce won't try to modify the exception reference
-    static assert(is(typeof(enforce(new Exception("test"), true))));
+    //// Check that enforce won't try to modify the exception reference
+    //static assert(is(typeof(enforce(new Exception("test"), true))));
 
-    // Check that enforce() with doesn't evaluate its lazy exception parameter
-    // if the sanity condition is true.
+    //// Check that enforce() with doesn't evaluate its lazy exception parameter
+    //// if the sanity condition is true.
 
-    enforce(
-        delegate MyException()
-        {
-            assert(false,
-                   "enforce() evaluated its exception parameter without error");
-        }(),
-        true
-    );
+    //enforce(
+    //    delegate MyException()
+    //    {
+    //        assert(false,
+    //               "enforce() evaluated its exception parameter without error");
+    //    }(),
+    //    true
+    //);
 
-    // call enforce() with condition "2 != 2" and verify it does evaluate its
-    // lazy exception parameter exactly once
+    //// call enforce() with condition "2 != 2" and verify it does evaluate its
+    //// lazy exception parameter exactly once
 
-    bool returned_reusable = false;
+    //bool returned_reusable = false;
 
-    try
-    {
-        enforce(
-            {
-                assert(!returned_reusable,
-                       "enforce() evaluated its exception pararmeter more " ~
-                       "than once");
-                returned_reusable = true;
-                return reusable;
-            }(),
-            false
-        );
-    }
-    catch (Exception e)
-    {
-        assert(e is reusable, "expected enforce() to throw reusable");
-    }
+    //try
+    //{
+    //    enforce(
+    //        {
+    //            assert(!returned_reusable,
+    //                   "enforce() evaluated its exception pararmeter more " ~
+    //                   "than once");
+    //            returned_reusable = true;
+    //            return reusable;
+    //        }(),
+    //        false
+    //    );
+    //}
+    //catch (Exception e)
+    //{
+    //    assert(e is reusable, "expected enforce() to throw reusable");
+    //}
 
-    assert(returned_reusable,
-           "enforce() didn't evaluate its exception parameter");
+    //assert(returned_reusable,
+    //       "enforce() didn't evaluate its exception parameter");
 }
 
 /******************************************************************************
